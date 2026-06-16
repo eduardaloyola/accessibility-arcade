@@ -1,7 +1,7 @@
 # 🎮 Accessibility Arcade
 
 > **Componente:** MATC83 - Desenvolvimento de Objetos de Aprendizagem (UFBA)
->  **Link do Jogo:** [CLIQUE AQUI PARA JOGAR](https://eduardaloyola.github.io/accessibility-arcade/)
+> > **Link do Jogo:** [CLIQUE AQUI PARA JOGAR](https://eduardaloyola.github.io/accessibility-arcade/)
 
 O **Accessibility Arcade** é um **Objeto de Aprendizagem (OA)** desenvolvido como um jogo retrô 8-bit. O objetivo é ensinar as diretrizes de acessibilidade na Web (WCAG) de forma prática e gamificada.
 
