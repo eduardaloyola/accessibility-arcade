@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acessibilidade Arcade - Level Up!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="intro-screen" class="intro-container">
+    <div class="intro-box">
+        <h1>ACCESSIBILITY ARCADE</h1>
+        <p class="subtitle">DEVELOPER TRAINING PROTOCOL v1.0</p>
+        
+        <div class="concept-cards">
+            <div class="card">
+                <h3>1. Semântica</h3>
+                <p>Leitores de tela navegam por estruturas lógicas. Tags como &lt;h1&gt; situam o usuário cego imediatamente ao carregar uma página.</p>
+            </div>
+            <div class="card">
+                <h3>2. Contraste</h3>
+                <p>Para pessoas com baixa visão ou daltonismo, as cores do texto e do fundo precisam de uma proporção mínima de contraste de 4.5:1 (Regra WCAG).</p>
+            </div>
+            <div class="card">
+                <h3>3. Descrição</h3>
+                <p>Imagens informativas precisam do atributo "alt" preenchido. Tabelas precisam do atributo scope="col" nas tags &lt;th&gt; para associar dados linearmente.</p>
+            </div>
+        </div>
+
+        <p class="prompt-text">PRONTO PARA ELIMINAR AS BARREIRAS DIGITAIS?</p>
+        <button class="btn-start" onclick="iniciarJogo()">VAMOS VER SE APRENDEU e começar o jogo</button>
+    </div>
+</div>
+
+<div id="game-container" style="display: none;">
+    <header>
+        <h1>ACCESSIBILITY ARCADE</h1>
+        <p>Insira a ficha e elimine as barreiras de acessibilidade!</p>
+        <button class="audio-control" onclick="toggleMusic()" id="music-btn">🎵 TRILHA SONORA: ON</button>
+    </header>
+
+    <div class="container">
+        <div class="hud-container">
+            <div class="hud-item">SCORE: <span id="score-val">0000</span></div>
+            <div class="hud-item">FASE: <span id="progress-val">0/6</span></div>
+            <div class="hud-item">STATUS: <span id="status-val" style="color: var(--arcade-yellow);">JOGANDO</span></div>
+        </div>
+
+        <div id="game-stages">
+            <section id="m1">
+                <h2>Missão 1: O Leitor de Tela Fantasma</h2>
+                <p>Um usuário cego iniciou a navegação pelo teclado. Qual elemento semântico o leitor de tela deve ler IMEDIATAMENTE primeiro para guiar o jogador na estrutura?</p>
+                <button class="btn-arcade" onclick="responderMissao('m1', true, 200, 'INSERT COIN! O elemento H1 situa o usuário imediatamente na tela.')">Título Principal (H1)</button>
+                <button class="btn-arcade" onclick="responderMissao('m1', false, 0, 'GAME OVER para a semântica! Começar pelo rodapé quebra a ordem lógica de leitura.')">Rodapé da Página</button>
+            </section>
+
+            <section id="m2">
+                <h2>Missão 2: O Desafio do Contraste</h2>
+                <p>Abaixo estão dois blocos de texto gerados pelo sistema. Qual deles possui a taxa de contraste correta para evitar fadiga ou bloco visual?</p>
+                
+                <div class="contrast-box">
+                    <div class="contrast-sample contrast-left">ALTO CONTRASTE (VÍDEO REFORÇADO)</div>
+                    <div class="contrast-sample contrast-right">BAIXO CONTRASTE (FUNDO APAGADO)</div>
+                </div>
+
+                <button class="btn-arcade" onclick="responderMissao('m2', true, 200, 'PERFECT! Manter o contraste alto garante legibilidade para todos!')">Lado Esquerdo</button>
+                <button class="btn-arcade" onclick="responderMissao('m2', false, 0, 'ERRO! Cores muito próximas ao fundo criam barreiras intransponíveis.')">Lado Direito</button>
+            </section>
+
+            <section id="m3">
+                <h2>Missão 3: Laboratório de Modificação - Nível Básico</h2>
+                <p>O elemento gráfico abaixo precisa de um texto alternativo correspondente para que os leitores consigam interpretá-lo. Corrija o código inserindo a propriedade correta:</p>
+                
+                <textarea id="code" rows="2">&lt;img src="pessoa.png"&gt;</textarea>
+                <button class="btn-arcade" onclick="validarLaboratorio1()">Injetar Código Modificado</button>
+            </section>
+
+            <section id="m4">
+                <h2>Missão 4: Scanner de Conformidade</h2>
+                <p>Selecione TODOS os critérios essenciais que um Inspetor de Acessibilidade precisa validar em uma auditoria padrão:</p>
+                
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="chk1"> Textos alternativos para mídias informativas.</label>
+                    <label><input type="checkbox" id="chk2"> Proporção de contraste de colunas/cores aceitável.</label>
+                    <label><input type="checkbox" id="chk3"> Ordem hierárquica e contínua das tags de títulos.</label>
+                </div>
+                <button class="btn-arcade" onclick="gerarRelatorio()">Rodar Varredura</button>
+            </section>
+
+            <section id="m5">
+                <h2>Missão 5: Laboratório Avançado - Tabelas de Dados</h2>
+                <p>Esta tabela está confusa para leitores de tela. Corrija adicionando o atributo <strong>scope="col"</strong> nas duas tags &lt;th&gt; de cima para associar os cabeçalhos às colunas correspondentes:</p>
+                
+                <textarea id="code-table" rows="5">&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Jogador&lt;/th&gt;
+    &lt;th&gt;Score&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</textarea>
+                <button class="btn-arcade" onclick="validarLaboratorio2()">Compilar Tabela Acessível</button>
+            </section>
+
+            <section id="m6">
+                <h2>Missão Bônus: Destruidor de Bugs</h2>
+                <p>Encontre os 3 elements defeituosos abaixo clicando sobre eles para aplicar o patch de correção e liberar o Score Final:</p>
+                
+                <div class="screen-simulator">
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div id="bug-header" style="cursor: pointer; padding: 5px; border: 1px transparent dashed;" onclick="corrigirBug('header', this)">
+                            <h1 style="margin: 0; font-size: 1.4rem; color: var(--arcade-yellow);">FASE FINAL</h1>
+                            <h4 style="margin: 5px 0 0 0; color: #888;">[BUG: Saltou do H1 para o H4]</h4>
+                        </div>
+                        <div id="bug-img" style="cursor: pointer; display: inline-block; width: fit-content; padding: 5px;" onclick="corrigirBug('img', this)">
+                            <span style="display:inline-block; background: #555; padding: 5px 15px; border: 2px dashed red; font-size: 0.8rem;">👾 Inimigo.png (Falta Alt Text)</span>
+                        </div>
+                         <!-- Bug 3: Contraste Ruim (No ponto certo: ligeiramente visível, mas ainda um erro nítido) -->
+                        <div id="bug-contrast" style="cursor: pointer; padding: 5px;" onclick="corrigirBug('contrast', this)">
+                        <p style="color: #2f3552; background-color: #202040; margin: 0; font-weight: bold; padding: 5px;">
+                        [BUG: Texto com baixo contraste]
+                        </p>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btn-bonus" class="btn-arcade" onclick="validarBonus()" style="opacity: 0.4; cursor: not-allowed;" disabled>Finalizar Jogo</button>
+            </section>
+        </div>
+
+        <div id="victory-panel" class="victory-screen">
+            <h2>VICTORY!</h2>
+            <p style="font-size: 1.4rem; color: var(--arcade-yellow);">CONCURSO CONCLUÍDO COM SUCESSO!</p>
+            
+            <div style="font-size: 1.8rem; margin: 20px 0;">
+                PONTUAÇÃO FINAL: <span id="final-score" style="color: var(--arcade-pink); font-weight: bold;">0000</span> / 1200 PTS
+            </div>
+
+            <div class="skills-list">
+                <h3>📂 LOG DE HABILIDADES DESBLOQUEADAS:</h3>
+                <ul>
+                    <li><strong>Semântica Estrutural:</strong> Entendeu a criticidade da tag H1 como ponto de partida para leitores de tela.</li>
+                    <li><strong>Design Inclusivo:</strong> Aprendeu as regras de contraste mínimo (4.5:1) da WCAG para baixa visão.</li>
+                    <li><strong>Acessibilidade Textual:</strong> Injetou e tratou o atributo "alt" para descrever imagens informativas.</li>
+                    <li><strong>Auditoria Técnico:</strong> Mapeou os pilares principais para gerar relatórios de conformidade.</li>
+                    <li><strong>Estruturas Complexas:</strong> Corrigiu o mapeamento de tabelas usando "scope=col" para linearização de dados.</li>
+                </ul>
+            </div>
+
+            <p style="color: var(--arcade-neon-blue); font-weight: bold; margin-top: 25px;">Você está pronto para programar interfaces para todo mundo. Player 1 Win!</p>
+            <button class="btn-arcade" onclick="window.location.reload()">🔄 JOGAR NOVAMENTE</button>
+        </div>
+    </div>
+</div>
+
+<div id="fb-panel" class="feedback-panel" role="status" aria-live="polite">
+    <div id="fb-text"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
